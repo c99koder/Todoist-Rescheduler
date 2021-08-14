@@ -13,11 +13,15 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-import requests, sys
+import sys
 from datetime import datetime, date, timedelta
 from todoist.api import TodoistAPI
 
 TODOIST_ACCESS_TOKEN = '' #At the bottom of Settings > Integrations in the web/desktop app
+
+if len(sys.argv) != 2:
+	print("Usage: " + sys.argv[0] + " label")
+	sys.exit(0)
 
 def find_label_id(label):
 	for l in api.state['labels']:
@@ -46,9 +50,6 @@ def reschedule_label(label):
 api = TodoistAPI(TODOIST_ACCESS_TOKEN)
 api.sync()
 
-reschedule_label("daily")
-reschedule_label("weekly")
-reschedule_label("monthly")
-reschedule_label("yearly")
+reschedule_label(sys.argv[1])
 
 api.commit()

@@ -6,16 +6,22 @@ Open `todoist-rescheduler.py` and set your API token at the top of the file
 
 ## Usage
 Check your Python version and make sure version 3.7 or newer is installed on your system:
-```
-$ python3 --version
+```sh
+python3 --version
 ```
 
 Install required python3 modules:
-```
-$ pip3 install todoist-python
+```sh
+pip3 install todoist-python
 ```
 
-Run the script at the end of the day to automatically reschedule any overdue tasks with the label `daily`, `weekly`, `monthly`, and `yearly` to the next day/week/month/year.
+Run the script at the end of the day with the name of a label to automatically reschedule any overdue tasks to the next occurance.
+```sh
+python3 todoist-rescheduler.py daily
+python3 todoist-rescheduler.py weekly
+python3 todoist-rescheduler.py monthly
+python3 todoist-rescheduler.py yearly
+```
 
 # License
 
