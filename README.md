@@ -1,5 +1,5 @@
 # Todoist-Rescheduler
-Automatically reschedule overdue tasks in Todoist
+Automatically reschedule overdue recurring tasks in Todoist
 
 ## Configuration
 Open `todoist-rescheduler.py` and set your API token at the top of the file
