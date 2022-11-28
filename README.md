@@ -12,7 +12,7 @@ python3 --version
 
 Install required python3 modules:
 ```sh
-pip3 install todoist-python
+pip3 install todoist-api-python
 ```
 
 Run the script at the end of the day with the name of a label to automatically reschedule any overdue tasks to the next occurance.

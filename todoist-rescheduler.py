@@ -14,8 +14,8 @@
 #  limitations under the License.
 
 import sys
-from datetime import datetime, date, timedelta
-from todoist.api import TodoistAPI
+from datetime import datetime
+from todoist_api_python.api import TodoistAPI
 
 TODOIST_ACCESS_TOKEN = '' #At the bottom of Settings > Integrations in the web/desktop app
 
@@ -23,33 +23,16 @@ if len(sys.argv) != 2:
 	print("Usage: " + sys.argv[0] + " label")
 	sys.exit(0)
 
-def find_label_id(label):
-	for l in api.state['labels']:
-		if l['name'] == label:
-			return l['id']
-	return None
-
-def find_items_by_label_id(label_id):
-	items = []
-	for i in api.state['items']:
-		for l in i['labels']:
-			if l == label_id:
-				items.append(i)
-
-	return items
-
 def reschedule_label(label):
-	items = find_items_by_label_id(find_label_id(label))
+	items = api.get_tasks(label=label)
 	for item in items:
-		due = item['due']
-		date = datetime.fromisoformat(due['date'])
-		if date < datetime.now():
-			print("Overdue (" + label + "): " + str(date) + " - " + item['content'])
-			item.update(due={'string': due['string']})
+		date = item.due.datetime
+		if date is None:
+			date = item.due.date
+		if datetime.fromisoformat(date) < datetime.now():
+			print("Overdue (" + label + "): " + date + " - " + item.content)
+			api.update_task(task_id=item.id, due_string=item.due.string)
 
 api = TodoistAPI(TODOIST_ACCESS_TOKEN)
-api.sync()
 
 reschedule_label(sys.argv[1])
-
-api.commit()
