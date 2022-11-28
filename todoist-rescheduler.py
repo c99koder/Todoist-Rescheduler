@@ -13,7 +13,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-import sys
+import sys, time, requests
 from datetime import datetime
 from todoist_api_python.api import TodoistAPI
 
@@ -31,7 +31,11 @@ def reschedule_label(label):
 			date = item.due.date
 		if datetime.fromisoformat(date) < datetime.now():
 			print("Overdue (" + label + "): " + date + " - " + item.content)
-			api.update_task(task_id=item.id, due_string=item.due.string)
+			try:
+				api.update_task(task_id=item.id, due_string=item.due.string)
+			except requests.exceptions.HTTPError as err:
+				time.sleep(5)
+				api.update_task(task_id=item.id, due_string=item.due.string)
 
 api = TodoistAPI(TODOIST_ACCESS_TOKEN)
 

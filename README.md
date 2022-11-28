@@ -5,7 +5,7 @@ Automatically reschedule overdue recurring tasks in Todoist
 Open `todoist-rescheduler.py` and set your API token at the top of the file
 
 ## Usage
-Check your Python version and make sure version 3.7 or newer is installed on your system:
+Check your Python version and make sure version 3.9 or newer is installed on your system:
 ```sh
 python3 --version
 ```
